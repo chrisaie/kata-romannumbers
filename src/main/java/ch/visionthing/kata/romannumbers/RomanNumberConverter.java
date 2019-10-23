@@ -3,14 +3,29 @@ package ch.visionthing.kata.romannumbers;
 public class RomanNumberConverter {
     public String convert(int amount) {
         StringBuilder sb = new StringBuilder();
-        if(amount < 4) {
-            for (int i = 1; i <= amount; i++) {
-                sb.append("I");
-
+        for(AmountToRoman amountToRoman: AmountToRoman.values()) {
+            while(amount >= amountToRoman.amount) {
+                sb.append(amountToRoman.roman);
+                amount -= amountToRoman.amount;
             }
-            return sb.toString();
         }
-        if(amount == 4) return "IV";
         return sb.toString();
+    }
+
+    enum AmountToRoman {
+        TEN(10, "X"),
+        NINE(9, "IX"),
+        FIVE(5, "V"),
+        FOUR(4 , "IV"),
+        ONE( 1, "I");
+
+        private final String roman;
+        private final int amount;
+
+
+        AmountToRoman(int amount, String roman) {
+            this.roman = roman;
+            this.amount = amount;
+        }
     }
 }
