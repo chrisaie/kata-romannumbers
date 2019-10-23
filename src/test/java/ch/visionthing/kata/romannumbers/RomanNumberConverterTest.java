@@ -1,33 +1,19 @@
 package ch.visionthing.kata.romannumbers;
 
 
-
-
-
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class RomanNumberConverterTest {
 
-    @Test
-    public void should_return_I_for_1() {
-        //Given
-        RomanNumberConverter romanNumberConverter = new RomanNumberConverter();
-        //When
+    private RomanNumberConverter romanNumberConverter = new RomanNumberConverter();
 
-        //Then
-        assertThat(romanNumberConverter.convert(1), is("I"));
-    }
-
-    @org.junit.jupiter.api.Test
-    public void should_return_II_for_2() {
-        //Given
-        RomanNumberConverter romanNumberConverter = new RomanNumberConverter();
-        //When
-
-        //Then
-        assertThat(romanNumberConverter.convert(2), is("II"));
+    @ParameterizedTest
+    @CsvSource({ "1,I", "2,II", "3,III", "4,IV" })
+    void convert_amount_to_romannumber(int amount, String expectedOutput) {
+        assertThat( romanNumberConverter.convert(amount), is(expectedOutput));
     }
 }
